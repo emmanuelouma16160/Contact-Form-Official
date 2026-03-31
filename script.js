@@ -1,33 +1,41 @@
+
 const form = document.getElementById('contact-form');
 
-form.addEventListener('submit', function(event)  {
-    event.preventDefault(); //stop page reloading
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Stop page from reloading
 
-
-    const name= document.getElementById('name').value.trim();
+    // Get values and trim whitespace
+    const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
 
-        //form validation
-    if(name === '' || email === '' || message === ''){{
+    // 1. Check for empty fields
+    if (name === '' || email === '' || message === '') {
         alert('Please fill in all fields.');
         return; 
     } 
-    if(!isValidEmail(email)){
+
+    // 2. Email validation
+    if (!isValidEmail(email)) {
         alert('Please enter a valid email address.');
         return;
     }
-    if (message.length < 10){
+
+    // 3. Length validation (though HTML 'minlength' also helps)
+    if (message.length < 10) {
         alert('Message should be at least 10 characters long.');
         return;
     }
-    // success message
+
+    // Success! 
     alert('Thank you for contacting us, ' + name + '! We will get back to you shortly.');
+    
+    // Clear the form fields
     form.reset();
-}});
-     //email validation function
-function isValidEmail(email){
+});
+
+// Helper function for email regex
+function isValidEmail(email) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
 }
-
